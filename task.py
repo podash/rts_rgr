@@ -28,3 +28,6 @@ class task:
 
     def getCreationTime(self):
         return self.creationTime
+
+    def completed(self):
+        return True if self.waitTime < 0.001 else False

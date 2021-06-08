@@ -6,6 +6,8 @@ class EDF:
     Q = []
     Qready = []
     currentTask = None
+    currentTask2 = None
+  
 
     def __init__(self, Q):
         self.Q = Q
@@ -60,15 +62,13 @@ class EDF:
                     self.currentTask = self.GetEDTask(True)
             elif self.currentTask is not None:
                 self.currentTask.workedOn()
-            if self.GetEDTask(False) is None and self.currentTask is None:
-                self.Tn[self.currentTime] += 1
+            if self.currentTask is not None:
+                self.currentTask2.workedOn()
+            if self.getEDTask(False) is None and self.currentTask is None:
+                self.currentTask2.workedOn()
                 continue
             elif self.currentTask is None:
-                self.currentTask = self.GetEDTask(True)
-            for task in self.Qready:
-                task.wait()
-                timewait += 1
-            self.Tw[self.currentTime] = timewait
+                self.currentTask = self.getEDTask(True)
 
     def GetWaitTimes(self):
         return self.Tw
@@ -88,6 +88,7 @@ class RM:
     Q = []
     Qready = []
     currentTask = None
+    currentTask2 = None
 
     def __init__(self, Q):
         self.Q = Q
@@ -138,15 +139,13 @@ class RM:
                 self.currentTask = None
             elif self.currentTask is not None:
                 self.currentTask.workedOn()
+            if self.currentTask is not None:
+                self.currentTask2.workedOn()
             if self.getEDTask(False) is None and self.currentTask is None:
-                self.Tn[self.currentTime] += 1
+                self.currentTask2.workedOn()
                 continue
             elif self.currentTask is None:
                 self.currentTask = self.getEDTask(True)
-            for task in self.Qready:
-                task.wait()
-                timewait += 1
-            self.Tw[self.currentTime] = timewait
 
     def GetWaitTimes(self):
         return self.Tw
