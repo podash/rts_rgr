@@ -29,3 +29,8 @@ class erDistribution:
 
     def ChangeLambda(self, lam):
         self.lam = lam
+
+
+
+
+      
